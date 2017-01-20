@@ -1,0 +1,12 @@
+version: '2'
+services:
+    staceyeditor-postgresql:
+        container_name: staceyeditor-postgresql
+        image: postgres:9.5.4
+        # volumes:
+        #     - ~/volumes/jhipster/staceyEditor/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=staceyEditor
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432
