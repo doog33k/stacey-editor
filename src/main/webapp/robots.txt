@@ -5,6 +5,7 @@ Disallow: /api/account
 Disallow: /api/account/change_password
 Disallow: /api/account/sessions
 Disallow: /api/audits/
+Disallow: /api/editor/
 Disallow: /api/logs/
 Disallow: /api/users/
 Disallow: /management/
