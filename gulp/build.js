@@ -17,11 +17,14 @@ var fs = require('fs'),
     gulpIf = require('gulp-if'),
     handleErrors = require('./handle-errors');
 
+const babel = require('gulp-babel');
+
 var config = require('./config');
 
 var initTask = lazypipe()
     .pipe(sourcemaps.init);
 var jsTask = lazypipe()
+    // .pipe(babel)
     .pipe(ngAnnotate)
     .pipe(uglify);
 var cssTask = lazypipe()

@@ -92,7 +92,7 @@ gulp.task('inject', function() {
 
 gulp.task('inject:dep', ['inject:test', 'inject:vendor']);
 
-gulp.task('inject:app', inject.app);
+gulp.task('inject:app',  inject.app);
 
 gulp.task('inject:vendor', inject.vendor);
 
@@ -143,7 +143,7 @@ gulp.task('ngconstant:prod', function () {
 
 // check app for eslint errors
 gulp.task('eslint', function () {
-    return gulp.src(['gulpfile.js', config.app + 'app/**/*.js'])
+    return gulp.src(['gulpfile.babel.js', config.app + 'app/**/*.js'])
         .pipe(plumber({errorHandler: handleErrors}))
         .pipe(eslint())
         .pipe(eslint.format())
@@ -189,13 +189,18 @@ gulp.task('itest', ['protractor']);
 
 gulp.task('watch', function () {
     gulp.watch('bower.json', ['install']);
-    gulp.watch(['gulpfile.js', 'pom.xml'], ['ngconstant:dev']);
+    gulp.watch(['gulpfile.babel.js', 'pom.xml'], ['ngconstant:dev']);
     gulp.watch(config.sassSrc, ['styles']);
     gulp.watch(config.app + 'content/images/**', ['images']);
     gulp.watch(config.app + 'app/**/*.js', ['inject:app']);
     gulp.watch([config.app + '*.html', config.app + 'app/**', config.app + 'i18n/**']).on('change', browserSync.reload);
 });
 
+// gulp.task('babel', function () {
+//     return gulp.src("src/app.js")
+//         .pipe(babel())
+//         .pipe(gulp.dest("dist"));
+// });
 gulp.task('install', function () {
     runSequence(['inject:dep', 'ngconstant:dev'], 'sass', 'copy:languages', 'inject:app', 'inject:troubleshoot');
 });
@@ -207,3 +212,4 @@ gulp.task('build', ['clean'], function (cb) {
 });
 
 gulp.task('default', ['serve']);
+

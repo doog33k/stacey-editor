@@ -8,6 +8,10 @@
     "src/main/webapp/bower_components"
   ],
   "devDependencies": {
+    "babel": "^5.8.38",
+    "babel-cli": "^6.22.2",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-es2015": "^6.22.0",
     "bower": "1.7.9",
     "browser-sync": "2.17.0",
     "del": "2.2.2",
@@ -19,6 +23,7 @@
     "gulp-angular-filesort": "1.1.1",
     "gulp-angular-templatecache": "2.0.0",
     "gulp-autoprefixer": "3.1.1",
+    "gulp-babel": "^6.1.2",
     "gulp-changed": "1.3.2",
     "gulp-cssnano": "2.1.2",
     "gulp-eslint": "3.0.1",
@@ -34,16 +39,16 @@
     "gulp-ng-constant": "1.1.0",
     "gulp-notify": "2.2.0",
     "gulp-plumber": "1.1.0",
+    "gulp-protractor": "3.0.0",
     "gulp-rename": "1.2.2",
     "gulp-replace": "0.5.4",
-    "gulp-protractor": "3.0.0",
-    "gulp-util": "3.0.7",
     "gulp-rev": "7.1.2",
     "gulp-rev-replace": "0.4.3",
     "gulp-sass": "2.3.2",
     "gulp-sourcemaps": "1.6.0",
     "gulp-uglify": "2.0.0",
     "gulp-useref": "3.1.2",
+    "gulp-util": "3.0.7",
     "jasmine-core": "2.5.0",
     "jasmine-reporters": "2.2.0",
     "karma": "1.2.0",
@@ -63,7 +68,6 @@
     "proxy-middleware": "0.15.0",
     "run-sequence": "1.2.2",
     "xml2js": "0.4.17",
-
     "yargs": "5.0.0"
   },
   "engines": {
