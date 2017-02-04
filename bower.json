@@ -4,7 +4,6 @@
   "appPath": "src/main/webapp/",
   "testPath": "src/test/javascript/spec",
   "dependencies": {
-    "ace-builds": "^1.2.5",
     "angular": "1.5.8",
     "angular-aria": "1.5.8",
     "angular-bootstrap": "1.3.3",
