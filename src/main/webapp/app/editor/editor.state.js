@@ -25,8 +25,11 @@
                 mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
-                }]
+                }],
+                entity: ['$stateParams', 'File', function($stateParams, File) {
+                    return $stateParams.id != null ? File.get({id : $stateParams.id}).$promise : {};
+                }],
             }
-        });
+        })
     }
 })();
