@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "file",
+            "otherEntityName": "file",
+            "otherEntityRelationshipName": "fileState"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "version",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "last",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "content",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        }
+    ],
+    "changelogDate": "20170204214840",
+    "entityTableName": "file_state",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "stacey"
+}

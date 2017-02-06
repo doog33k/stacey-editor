@@ -1,0 +1,24 @@
+{
+    "staceyEditorApp": {
+        "file" : {
+            "home": {
+                "title": "Files",
+                "createLabel": "Create a new File",
+                "createOrEditLabel": "Create or edit a File",
+                "search": "Search for File"
+            },
+            "created": "A new File is created with identifier {{ param }}",
+            "updated": "A File is updated with identifier {{ param }}",
+            "deleted": "A File is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete File {{ id }}?"
+            },
+            "detail": {
+                "title": "File"
+            },
+            "name": "Name",
+            "session": "Session",
+            "fileState": "File State"
+        }
+    }
+}

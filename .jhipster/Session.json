@@ -1,0 +1,31 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "file",
+            "otherEntityName": "file",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "started",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "ended",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20170204214838",
+    "entityTableName": "session",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "stacey"
+}

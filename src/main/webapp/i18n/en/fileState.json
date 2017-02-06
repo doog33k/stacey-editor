@@ -1,0 +1,25 @@
+{
+    "staceyEditorApp": {
+        "fileState" : {
+            "home": {
+                "title": "File States",
+                "createLabel": "Create a new File State",
+                "createOrEditLabel": "Create or edit a File State",
+                "search": "Search for File State"
+            },
+            "created": "A new File State is created with identifier {{ param }}",
+            "updated": "A File State is updated with identifier {{ param }}",
+            "deleted": "A File State is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete File State {{ id }}?"
+            },
+            "detail": {
+                "title": "File State"
+            },
+            "version": "Version",
+            "last": "Last",
+            "content": "Content",
+            "file": "File"
+        }
+    }
+}

@@ -1,0 +1,64 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myFileStateLabel" data-translate="staceyEditorApp.fileState.home.createOrEditLabel">Create or edit a File State</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.fileState.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.fileState.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="staceyEditorApp.fileState.version" for="field_version">Version</label>
+            <input type="number" class="form-control" name="version" id="field_version"
+                    ng-model="vm.fileState.version"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="staceyEditorApp.fileState.last" for="field_last">Last</label>
+                <div class="input-group">
+                    <input id="field_last" type="text" class="form-control" name="last" datetime-picker="{{dateformat}}" ng-model="vm.fileState.last" is-open="vm.datePickerOpenStatus.last"
+                      />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('last')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setContent($file, vm.fileState)">
+            <label class="control-label" data-translate="staceyEditorApp.fileState.content" for="field_content">Content</label>
+            <div>
+                <div ng-if="vm.fileState.content" class="help-block clearfix">
+                    <a class="pull-left" ng-click="vm.openFile(vm.fileState.contentContentType, vm.fileState.content)" data-translate="entity.action.open">open</a><br>
+                    <span class="pull-left">{{vm.fileState.contentContentType}}, {{vm.byteSize(vm.fileState.content)}}</span>
+                    <button type="button" ng-click="vm.fileState.content=null;vm.fileState.contentContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="button" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setContent($file, vm.fileState)" data-translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="content" id="field_content"
+                    ng-model="vm.fileState.content"
+                     />
+            <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
+                    ng-model="vm.fileState.contentContentType" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

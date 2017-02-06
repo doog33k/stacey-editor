@@ -1,0 +1,34 @@
+
+<div>
+    <h2><span data-translate="staceyEditorApp.fileState.detail.title">File State</span> {{vm.fileState.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="staceyEditorApp.fileState.version">Version</span></dt>
+        <dd>
+            <span>{{vm.fileState.version}}</span>
+        </dd>
+        <dt><span data-translate="staceyEditorApp.fileState.last">Last</span></dt>
+        <dd>
+            <span>{{vm.fileState.last | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="staceyEditorApp.fileState.content">Content</span></dt>
+        <dd>
+            <div ng-if="vm.fileState.content">
+                <a ng-click="vm.openFile(vm.fileState.contentContentType, vm.fileState.content)" data-translate="entity.action.open">open</a>
+                {{vm.fileState.contentContentType}}, {{vm.byteSize(vm.fileState.content)}}
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="file-statestacey-detail.edit({id:vm.fileState.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
