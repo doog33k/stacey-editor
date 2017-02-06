@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+   <changeSet author="qlehenaff (generated)" id="1486418931778-1">
+      <createSequence sequenceName="hibernate_sequence"/>
+   </changeSet>
+   <changeSet author="qlehenaff (generated)" id="1486418931778-2">
+      <createTable tableName="file">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="filePK"/>
+         </column>
+         <column name="name" type="VARCHAR(255)"/>
+         <column name="file_id" type="BIGINT"/>
+      </createTable>
+   </changeSet>
+   <changeSet author="qlehenaff (generated)" id="1486418931778-3">
+      <createTable tableName="file_state">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="file_statePK"/>
+         </column>
+         <column name="content" type="BLOB"/>
+         <column name="content_content_type" type="VARCHAR(255)"/>
+         <column name="last" type="BINARY(255)"/>
+         <column name="version" type="BIGINT"/>
+         <column name="file_id" type="BIGINT"/>
+      </createTable>
+   </changeSet>
+   <changeSet author="qlehenaff (generated)" id="1486418931778-10">
+      <createTable tableName="session">
+         <column autoIncrement="true" name="id" type="BIGINT">
+            <constraints primaryKey="true" primaryKeyName="sessionPK"/>
+         </column>
+         <column name="ended" type="BINARY(255)"/>
+         <column name="name" type="VARCHAR(255)"/>
+         <column name="started" type="BINARY(255)"/>
+      </createTable>
+   </changeSet>
+   <changeSet author="qlehenaff (generated)" id="1486418931778-20">
+      <addForeignKeyConstraint baseColumnNames="file_id"
+                               baseTableName="file"
+                               constraintName="FKkcktrroiahxcpilflm3a583de"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="session"/>
+   </changeSet>
+   <changeSet author="qlehenaff (generated)" id="1486418931778-21">
+      <addForeignKeyConstraint baseColumnNames="file_id"
+                               baseTableName="file_state"
+                               constraintName="FKmlcksp1tcor8hn1jgbm463ve8"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="file"/>
+   </changeSet>
+</databaseChangeLog>
