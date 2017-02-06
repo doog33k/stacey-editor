@@ -1,11 +1,14 @@
 package fr.sokaris.stacey.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -31,8 +34,10 @@ public class Session implements Serializable {
     @Column(name = "ended")
     private ZonedDateTime ended;
 
-    @ManyToOne
-    private File file;
+    @OneToMany(mappedBy = "file")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<File> files = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -81,17 +86,29 @@ public class Session implements Serializable {
         this.ended = ended;
     }
 
-    public File getFile() {
-        return file;
+    public Set<File> getFiles() {
+        return files;
     }
 
-    public Session file(File file) {
-        this.file = file;
+    public Session files(Set<File> files) {
+        this.files = files;
         return this;
     }
 
-    public void setFile(File file) {
-        this.file = file;
+    public Session addFile(File file) {
+        files.add(file);
+        file.setFile(this);
+        return this;
+    }
+
+    public Session removeFile(File file) {
+        files.remove(file);
+        file.setFile(null);
+        return this;
+    }
+
+    public void setFiles(Set<File> files) {
+        this.files = files;
     }
 
     @Override

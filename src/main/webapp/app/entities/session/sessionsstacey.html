@@ -22,7 +22,6 @@
                     <th><span data-translate="staceyEditorApp.session.name">Name</span></th>
                     <th><span data-translate="staceyEditorApp.session.started">Started</span></th>
                     <th><span data-translate="staceyEditorApp.session.ended">Ended</span></th>
-                    <th><span data-translate="staceyEditorApp.session.file">File</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -32,9 +31,6 @@
                     <td>{{session.name}}</td>
                     <td>{{session.started | date:'medium'}}</td>
                     <td>{{session.ended | date:'medium'}}</td>
-                    <td>
-                        <a ui-sref="filestacey-detail({id:session.fileId})">{{session.fileId}}</a>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

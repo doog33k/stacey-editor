@@ -19,6 +19,10 @@
                 {{vm.fileState.contentContentType}}, {{vm.byteSize(vm.fileState.content)}}
             </div>
         </dd>
+        <dt><span data-translate="staceyEditorApp.fileState.file">File</span></dt>
+        <dd>
+            <a ui-sref="filestacey-detail({id:vm.fileState.fileId})">{{vm.fileState.fileId}}</a>
+        </dd>
     </dl>
 
     <button type="submit"

@@ -16,7 +16,7 @@ public class FileDTO implements Serializable {
     private String name;
 
 
-    private Long fileStateId;
+    private Long fileId;
     
     public Long getId() {
         return id;
@@ -33,12 +33,12 @@ public class FileDTO implements Serializable {
         this.name = name;
     }
 
-    public Long getFileStateId() {
-        return fileStateId;
+    public Long getFileId() {
+        return fileId;
     }
 
-    public void setFileStateId(Long fileStateId) {
-        this.fileStateId = fileStateId;
+    public void setFileId(Long sessionId) {
+        this.fileId = sessionId;
     }
 
     @Override

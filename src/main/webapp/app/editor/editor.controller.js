@@ -11,9 +11,9 @@ var sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
         .module('staceyEditorApp')
         .controller('EditorController', EditorController);
 
-    EditorController.$inject = ['$scope', '$state', '$stateParams', 'entity', 'File'];
+    EditorController.$inject = ['$scope', '$state', '$stateParams', 'entity', 'File', 'FileState'];
 
-    function EditorController ($scope, $state, $stateParams, entity, File) {
+    function EditorController ($scope, $state, $stateParams, entity, File, FileState) {
         var vm = this;
 
 
@@ -34,22 +34,26 @@ var sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
 
         function saveFile() {
             vm.isSaving = true;
-            vm.file.filestates = {
-                content : editor.session.getValue(),
-                contentContentType : 'TextBlob',
-            }
             if (vm.file.id !== null) {
                 File.update(vm.file, onSaveSuccess, onSaveError);
+                FileState.save({
+                    fileForStateId : vm.file.id,
+                    content : editor.session.getValue(),
+                    contentContentType : 'TextBlob',
+                }, onSaveSuccess, onSaveError);
             } else {
                 File.save(vm.file, onSaveSuccess, onSaveError);
+                FileState.save({
+                    fileForStateId : vm.file.id,
+                    content : editor.session.getValue(),
+                    contentContentType : 'Clob',
+                }, onSaveSuccess, onSaveError);
             }
         }
 
         vm.saveFile = saveFile;
 
         function onSaveSuccess (result) {
-            // $scope.$emit('staceyEditorApp:fileStateUpdate', result);
-            // $uibModalInstance.close(result);
             alert('success');
             vm.isSaving = false;
         }

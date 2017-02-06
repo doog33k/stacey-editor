@@ -21,8 +21,6 @@ public class SessionDTO implements Serializable {
     private ZonedDateTime ended;
 
 
-    private Long fileId;
-    
     public Long getId() {
         return id;
     }
@@ -50,14 +48,6 @@ public class SessionDTO implements Serializable {
 
     public void setEnded(ZonedDateTime ended) {
         this.ended = ended;
-    }
-
-    public Long getFileId() {
-        return fileId;
-    }
-
-    public void setFileId(Long fileId) {
-        this.fileId = fileId;
     }
 
     @Override

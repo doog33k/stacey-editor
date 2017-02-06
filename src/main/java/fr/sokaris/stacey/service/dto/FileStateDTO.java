@@ -1,5 +1,7 @@
 package fr.sokaris.stacey.service.dto;
 
+import org.hibernate.annotations.Type;
+
 import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -23,6 +25,8 @@ public class FileStateDTO implements Serializable {
     private byte[] content;
 
     private String contentContentType;
+
+    private Long fileId;
 
     public Long getId() {
         return id;
@@ -53,12 +57,23 @@ public class FileStateDTO implements Serializable {
         this.content = content;
     }
 
+    public void setContent(String content) {
+        this.content = content.getBytes();
+    }
     public String getContentContentType() {
         return contentContentType;
     }
 
     public void setContentContentType(String contentContentType) {
         this.contentContentType = contentContentType;
+    }
+
+    public Long getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(Long fileId) {
+        this.fileId = fileId;
     }
 
     @Override

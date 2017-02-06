@@ -22,6 +22,7 @@
                     <th><span data-translate="staceyEditorApp.fileState.version">Version</span></th>
                     <th><span data-translate="staceyEditorApp.fileState.last">Last</span></th>
                     <th><span data-translate="staceyEditorApp.fileState.content">Content</span></th>
+                    <th><span data-translate="staceyEditorApp.fileState.file">File</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -33,6 +34,9 @@
                     <td>
                         <a ng-if="fileState.content" ng-click="vm.openFile(fileState.contentContentType, fileState.content)" data-translate="entity.action.open">open</a>
                         <span ng-if="fileState.content">{{fileState.contentContentType}}, {{vm.byteSize(fileState.content)}}</span>
+                    </td>
+                    <td>
+                        <a ui-sref="filestacey-detail({id:fileState.fileId})">{{fileState.fileId}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

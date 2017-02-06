@@ -12,23 +12,23 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {})
 public interface FileMapper {
 
-    @Mapping(source = "fileState.id", target = "fileStateId")
+    @Mapping(source = "file.id", target = "fileId")
     FileDTO fileToFileDTO(File file);
 
     List<FileDTO> filesToFileDTOs(List<File> files);
 
-    @Mapping(target = "sessions", ignore = true)
-    @Mapping(source = "fileStateId", target = "fileState")
+    @Mapping(source = "fileId", target = "file")
+    @Mapping(target = "fileStates", ignore = true)
     File fileDTOToFile(FileDTO fileDTO);
 
     List<File> fileDTOsToFiles(List<FileDTO> fileDTOs);
 
-    default FileState fileStateFromId(Long id) {
+    default Session sessionFromId(Long id) {
         if (id == null) {
             return null;
         }
-        FileState fileState = new FileState();
-        fileState.setId(id);
-        return fileState;
+        Session session = new Session();
+        session.setId(id);
+        return session;
     }
 }

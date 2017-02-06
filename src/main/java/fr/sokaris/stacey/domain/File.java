@@ -27,13 +27,13 @@ public class File implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @ManyToOne
+    private Session file;
+
     @OneToMany(mappedBy = "file")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Session> sessions = new HashSet<>();
-
-    @ManyToOne
-    private FileState fileState;
+    private Set<FileState> fileStates = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -56,42 +56,42 @@ public class File implements Serializable {
         this.name = name;
     }
 
-    public Set<Session> getSessions() {
-        return sessions;
+    public Session getFile() {
+        return file;
     }
 
-    public File sessions(Set<Session> sessions) {
-        this.sessions = sessions;
+    public File file(Session session) {
+        this.file = session;
         return this;
     }
 
-    public File addSession(Session session) {
-        sessions.add(session);
-        session.setFile(this);
+    public void setFile(Session session) {
+        this.file = session;
+    }
+
+    public Set<FileState> getFileStates() {
+        return fileStates;
+    }
+
+    public File fileStates(Set<FileState> fileStates) {
+        this.fileStates = fileStates;
         return this;
     }
 
-    public File removeSession(Session session) {
-        sessions.remove(session);
-        session.setFile(null);
+    public File addFileState(FileState fileState) {
+        fileStates.add(fileState);
+        fileState.setFile(this);
         return this;
     }
 
-    public void setSessions(Set<Session> sessions) {
-        this.sessions = sessions;
-    }
-
-    public FileState getFileState() {
-        return fileState;
-    }
-
-    public File fileState(FileState fileState) {
-        this.fileState = fileState;
+    public File removeFileState(FileState fileState) {
+        fileStates.remove(fileState);
+        fileState.setFile(null);
         return this;
     }
 
-    public void setFileState(FileState fileState) {
-        this.fileState = fileState;
+    public void setFileStates(Set<FileState> fileStates) {
+        this.fileStates = fileStates;
     }
 
     @Override

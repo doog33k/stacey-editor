@@ -40,12 +40,6 @@
                 </div>
         </div>
 
-        <div class="form-group">
-            <label data-translate="staceyEditorApp.session.file" for="field_file">File</label>
-            <select class="form-control" id="field_file" name="file" ng-model="vm.session.fileId" ng-options="file.id as file.id for file in vm.files"            >
-                <option value=""></option>
-            </select>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">

@@ -17,7 +17,7 @@
                 "title": "File"
             },
             "name": "Name",
-            "session": "Session",
+            "file": "File",
             "fileState": "File State"
         }
     }
