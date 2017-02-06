@@ -33,10 +33,8 @@ const sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
         }
 
         function saveFile() {
-            alert('saving');
             vm.isSaving = true;
             vm.file.filestates = {
-                file : vm.file,
                 content : editor.session.getValue(),
                 contentContentType : 'TextBlob',
             }
@@ -46,6 +44,9 @@ const sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
                 File.save(vm.file, onSaveSuccess, onSaveError);
             }
         }
+
+        vm.saveFile = saveFile;
+
         function onSaveSuccess (result) {
             // $scope.$emit('staceyEditorApp:fileStateUpdate', result);
             // $uibModalInstance.close(result);
