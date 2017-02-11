@@ -1,6 +1,6 @@
 'use strict'
 
-const sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
+var sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
     ;
 
 
