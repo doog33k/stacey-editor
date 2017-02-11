@@ -13,12 +13,13 @@ dependencies:
     override:
         - npm install -g npm
         - npm install -g bower gulp
+        - npm install
         - node -v
         - npm -v
         - bower -v
         - gulp -v
         - java -version
-        - npm install
+
 test:
     override:
         - ./mvnw clean
@@ -26,8 +27,13 @@ test:
         - gulp test
         - ./mvnw package -Pprod -DskipTests
 
+    post:
+        - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+        - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+
+
 deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: stacey-editor
+    production:
+        branch: master
+        heroku:
+            appname: stacey-editor
