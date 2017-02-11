@@ -25,3 +25,9 @@ test:
         - ./mvnw test
         - gulp test
         - ./mvnw package -Pprod -DskipTests
+
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: stacey-editor
