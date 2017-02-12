@@ -46,16 +46,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = StaceyEditorApp.class)
 public class FileStateResourceIntTest {
 
-    private static final Long DEFAULT_VERSION = 1L;
-    private static final Long UPDATED_VERSION = 2L;
+    private static final ZonedDateTime DEFAULT_LAST_MODIFICATION = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_LAST_MODIFICATION = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
-    private static final ZonedDateTime DEFAULT_LAST = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_LAST = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-
-    private static final byte[] DEFAULT_CONTENT = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_CONTENT = TestUtil.createByteArray(2, "1");
-    private static final String DEFAULT_CONTENT_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_CONTENT_CONTENT_TYPE = "image/png";
+    private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
+    private static final String UPDATED_CONTENT = "BBBBBBBBBB";
 
     @Inject
     private FileStateRepository fileStateRepository;
@@ -97,10 +92,8 @@ public class FileStateResourceIntTest {
      */
     public static FileState createEntity(EntityManager em) {
         FileState fileState = new FileState()
-                .version(DEFAULT_VERSION)
-                .last(DEFAULT_LAST)
-                .content(DEFAULT_CONTENT)
-                .contentContentType(DEFAULT_CONTENT_CONTENT_TYPE);
+                .lastModification(DEFAULT_LAST_MODIFICATION)
+                .content(DEFAULT_CONTENT);
         return fileState;
     }
 
@@ -126,10 +119,8 @@ public class FileStateResourceIntTest {
         List<FileState> fileStateList = fileStateRepository.findAll();
         assertThat(fileStateList).hasSize(databaseSizeBeforeCreate + 1);
         FileState testFileState = fileStateList.get(fileStateList.size() - 1);
-        assertThat(testFileState.getVersion()).isEqualTo(DEFAULT_VERSION);
-        assertThat(testFileState.getLast()).isEqualTo(DEFAULT_LAST);
+        assertThat(testFileState.getLastModification()).isEqualTo(DEFAULT_LAST_MODIFICATION);
         assertThat(testFileState.getContent()).isEqualTo(DEFAULT_CONTENT);
-        assertThat(testFileState.getContentContentType()).isEqualTo(DEFAULT_CONTENT_CONTENT_TYPE);
     }
 
     @Test
@@ -164,10 +155,8 @@ public class FileStateResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(fileState.getId().intValue())))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.intValue())))
-            .andExpect(jsonPath("$.[*].last").value(hasItem(sameInstant(DEFAULT_LAST))))
-            .andExpect(jsonPath("$.[*].contentContentType").value(hasItem(DEFAULT_CONTENT_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].content").value(hasItem(Base64Utils.encodeToString(DEFAULT_CONTENT))));
+            .andExpect(jsonPath("$.[*].lastModification").value(hasItem(sameInstant(DEFAULT_LAST_MODIFICATION))))
+            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())));
     }
 
     @Test
@@ -181,10 +170,8 @@ public class FileStateResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(fileState.getId().intValue()))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.intValue()))
-            .andExpect(jsonPath("$.last").value(sameInstant(DEFAULT_LAST)))
-            .andExpect(jsonPath("$.contentContentType").value(DEFAULT_CONTENT_CONTENT_TYPE))
-            .andExpect(jsonPath("$.content").value(Base64Utils.encodeToString(DEFAULT_CONTENT)));
+            .andExpect(jsonPath("$.lastModification").value(sameInstant(DEFAULT_LAST_MODIFICATION)))
+            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()));
     }
 
     @Test
@@ -205,10 +192,8 @@ public class FileStateResourceIntTest {
         // Update the fileState
         FileState updatedFileState = fileStateRepository.findOne(fileState.getId());
         updatedFileState
-                .version(UPDATED_VERSION)
-                .last(UPDATED_LAST)
-                .content(UPDATED_CONTENT)
-                .contentContentType(UPDATED_CONTENT_CONTENT_TYPE);
+                .lastModification(UPDATED_LAST_MODIFICATION)
+                .content(UPDATED_CONTENT);
         FileStateDTO fileStateDTO = fileStateMapper.fileStateToFileStateDTO(updatedFileState);
 
         restFileStateMockMvc.perform(put("/api/file-states")
@@ -220,10 +205,8 @@ public class FileStateResourceIntTest {
         List<FileState> fileStateList = fileStateRepository.findAll();
         assertThat(fileStateList).hasSize(databaseSizeBeforeUpdate);
         FileState testFileState = fileStateList.get(fileStateList.size() - 1);
-        assertThat(testFileState.getVersion()).isEqualTo(UPDATED_VERSION);
-        assertThat(testFileState.getLast()).isEqualTo(UPDATED_LAST);
+        assertThat(testFileState.getLastModification()).isEqualTo(UPDATED_LAST_MODIFICATION);
         assertThat(testFileState.getContent()).isEqualTo(UPDATED_CONTENT);
-        assertThat(testFileState.getContentContentType()).isEqualTo(UPDATED_CONTENT_CONTENT_TYPE);
     }
 
     @Test

@@ -67,7 +67,7 @@ class FileStateGatlingTest extends Simulation {
             .exec(http("Create new fileState")
             .post("/api/file-states")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "version":null, "last":"2020-01-01T00:00:00.000Z", "content":null}""")).asJSON
+            .body(StringBody("""{"id":null, "lastModification":"2020-01-01T00:00:00.000Z", "content":null}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_fileState_url"))).exitHereIfFailed
             .pause(10)

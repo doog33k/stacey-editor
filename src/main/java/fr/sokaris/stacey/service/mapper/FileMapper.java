@@ -12,13 +12,13 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {})
 public interface FileMapper {
 
-    @Mapping(source = "file.id", target = "fileId")
+    @Mapping(source = "session.id", target = "sessionId")
     FileDTO fileToFileDTO(File file);
 
     List<FileDTO> filesToFileDTOs(List<File> files);
 
-    @Mapping(source = "fileId", target = "file")
-    @Mapping(target = "fileStates", ignore = true)
+    @Mapping(source = "sessionId", target = "session")
+    @Mapping(target = "files", ignore = true)
     File fileDTOToFile(FileDTO fileDTO);
 
     List<File> fileDTOsToFiles(List<FileDTO> fileDTOs);

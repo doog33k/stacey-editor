@@ -46,18 +46,7 @@
             vm.isSaving = false;
         }
 
-        vm.datePickerOpenStatus.last = false;
-
-        vm.setContent = function ($file, fileState) {
-            if ($file) {
-                DataUtils.toBase64($file, function(base64Data) {
-                    $scope.$apply(function() {
-                        fileState.content = base64Data;
-                        fileState.contentContentType = $file.type;
-                    });
-                });
-            }
-        };
+        vm.datePickerOpenStatus.lastModification = false;
 
         function openCalendar (date) {
             vm.datePickerOpenStatus[date] = true;

@@ -22,18 +22,12 @@ public class FileState implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "version")
-    private Long version;
-
-    @Column(name = "last")
-    private ZonedDateTime last;
+    @Column(name = "last_modification")
+    private ZonedDateTime lastModification;
 
     @Lob
     @Column(name = "content")
-    private byte[] content;
-
-    @Column(name = "content_content_type")
-    private String contentContentType;
+    private String content;
 
     @ManyToOne
     private File file;
@@ -46,56 +40,30 @@ public class FileState implements Serializable {
         this.id = id;
     }
 
-    public Long getVersion() {
-        return version;
+    public ZonedDateTime getLastModification() {
+        return lastModification;
     }
 
-    public FileState version(Long version) {
-        this.version = version;
+    public FileState lastModification(ZonedDateTime lastModification) {
+        this.lastModification = lastModification;
         return this;
     }
 
-    public void setVersion(Long version) {
-        this.version = version;
+    public void setLastModification(ZonedDateTime lastModification) {
+        this.lastModification = lastModification;
     }
 
-    public ZonedDateTime getLast() {
-        return last;
-    }
-
-    public FileState last(ZonedDateTime last) {
-        this.last = last;
-        return this;
-    }
-
-    public void setLast(ZonedDateTime last) {
-        this.last = last;
-    }
-
-    public byte[] getContent() {
+    public String getContent() {
         return content;
     }
 
-    public FileState content(byte[] content) {
+    public FileState content(String content) {
         this.content = content;
         return this;
     }
 
-    public void setContent(byte[] content) {
+    public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getContentContentType() {
-        return contentContentType;
-    }
-
-    public FileState contentContentType(String contentContentType) {
-        this.contentContentType = contentContentType;
-        return this;
-    }
-
-    public void setContentContentType(String contentContentType) {
-        this.contentContentType = contentContentType;
     }
 
     public File getFile() {
@@ -135,10 +103,8 @@ public class FileState implements Serializable {
     public String toString() {
         return "FileState{" +
             "id=" + id +
-            ", version='" + version + "'" +
-            ", last='" + last + "'" +
+            ", lastModification='" + lastModification + "'" +
             ", content='" + content + "'" +
-            ", contentContentType='" + contentContentType + "'" +
             '}';
     }
 }

@@ -1,7 +1,5 @@
 package fr.sokaris.stacey.service.dto;
 
-import org.hibernate.annotations.Type;
-
 import java.time.ZonedDateTime;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -17,17 +15,14 @@ public class FileStateDTO implements Serializable {
 
     private Long id;
 
-    private Long version;
-
-    private ZonedDateTime last;
+    private ZonedDateTime lastModification;
 
     @Lob
-    private byte[] content;
+    private String content;
 
-    private String contentContentType;
 
     private Long fileId;
-
+    
     public Long getId() {
         return id;
     }
@@ -35,37 +30,19 @@ public class FileStateDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    public Long getVersion() {
-        return version;
+    public ZonedDateTime getLastModification() {
+        return lastModification;
     }
 
-    public void setVersion(Long version) {
-        this.version = version;
+    public void setLastModification(ZonedDateTime lastModification) {
+        this.lastModification = lastModification;
     }
-    public ZonedDateTime getLast() {
-        return last;
-    }
-
-    public void setLast(ZonedDateTime last) {
-        this.last = last;
-    }
-    public byte[] getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
-
     public void setContent(String content) {
-        this.content = content.getBytes();
-    }
-    public String getContentContentType() {
-        return contentContentType;
-    }
-
-    public void setContentContentType(String contentContentType) {
-        this.contentContentType = contentContentType;
+        this.content = content;
     }
 
     public Long getFileId() {
@@ -101,8 +78,7 @@ public class FileStateDTO implements Serializable {
     public String toString() {
         return "FileStateDTO{" +
             "id=" + id +
-            ", version='" + version + "'" +
-            ", last='" + last + "'" +
+            ", lastModification='" + lastModification + "'" +
             ", content='" + content + "'" +
             '}';
     }

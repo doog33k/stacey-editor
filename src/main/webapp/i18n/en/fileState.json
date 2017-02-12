@@ -16,8 +16,7 @@
             "detail": {
                 "title": "File State"
             },
-            "version": "Version",
-            "last": "Last",
+            "lastModification": "Last Modification",
             "content": "Content",
             "file": "File"
         }

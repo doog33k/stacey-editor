@@ -1,0 +1,34 @@
+entity Session {
+	name String,
+    started ZonedDateTime,
+  	ended ZonedDateTime
+	
+}
+
+entity File {
+	name String
+}
+
+entity FileState {
+    lastModification ZonedDateTime,
+    content TextBlob
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Session{file} to File	
+}
+
+relationship OneToMany {
+	File{file} to FileState	
+}
+
+paginate File with pagination
+paginate FileState with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with stacey

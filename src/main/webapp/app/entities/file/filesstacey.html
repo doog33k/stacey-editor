@@ -20,7 +20,7 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span data-translate="staceyEditorApp.file.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="fileId"><span data-translate="staceyEditorApp.file.file">File</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="sessionId"><span data-translate="staceyEditorApp.file.session">Session</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -29,7 +29,7 @@
                     <td><a ui-sref="filestacey-detail({id:file.id})">{{file.id}}</a></td>
                     <td>{{file.name}}</td>
                     <td>
-                        <a ui-sref="sessionstacey-detail({id:file.fileId})">{{file.fileId}}</a>
+                        <a ui-sref="sessionstacey-detail({id:file.sessionId})">{{file.sessionId}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

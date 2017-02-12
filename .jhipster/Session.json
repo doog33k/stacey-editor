@@ -5,7 +5,7 @@
             "relationshipType": "one-to-many",
             "relationshipName": "file",
             "otherEntityName": "file",
-            "otherEntityRelationshipName": "file"
+            "otherEntityRelationshipName": "session"
         }
     ],
     "fields": [

@@ -34,7 +34,7 @@ public class Session implements Serializable {
     @Column(name = "ended")
     private ZonedDateTime ended;
 
-    @OneToMany(mappedBy = "file")
+    @OneToMany(mappedBy = "session")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<File> files = new HashSet<>();
@@ -97,13 +97,13 @@ public class Session implements Serializable {
 
     public Session addFile(File file) {
         files.add(file);
-        file.setFile(this);
+        file.setSession(this);
         return this;
     }
 
     public Session removeFile(File file) {
         files.remove(file);
-        file.setFile(null);
+        file.setSession(null);
         return this;
     }
 

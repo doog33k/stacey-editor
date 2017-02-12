@@ -4,20 +4,13 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span data-translate="staceyEditorApp.fileState.version">Version</span></dt>
+        <dt><span data-translate="staceyEditorApp.fileState.lastModification">Last Modification</span></dt>
         <dd>
-            <span>{{vm.fileState.version}}</span>
-        </dd>
-        <dt><span data-translate="staceyEditorApp.fileState.last">Last</span></dt>
-        <dd>
-            <span>{{vm.fileState.last | date:'medium'}}</span>
+            <span>{{vm.fileState.lastModification | date:'medium'}}</span>
         </dd>
         <dt><span data-translate="staceyEditorApp.fileState.content">Content</span></dt>
         <dd>
-            <div ng-if="vm.fileState.content">
-                <a ng-click="vm.openFile(vm.fileState.contentContentType, vm.fileState.content)" data-translate="entity.action.open">open</a>
-                {{vm.fileState.contentContentType}}, {{vm.byteSize(vm.fileState.content)}}
-            </div>
+            <span>{{vm.fileState.content}}</span>
         </dd>
         <dt><span data-translate="staceyEditorApp.fileState.file">File</span></dt>
         <dd>

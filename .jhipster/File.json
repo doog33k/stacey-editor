@@ -2,15 +2,15 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "many-to-one",
-            "relationshipName": "file",
+            "relationshipName": "session",
             "otherEntityName": "session",
+            "relationshipType": "many-to-one",
             "otherEntityField": "id"
         },
         {
-            "relationshipName": "fileState",
-            "otherEntityName": "fileState",
             "relationshipType": "one-to-many",
+            "relationshipName": "file",
+            "otherEntityName": "fileState",
             "otherEntityRelationshipName": "file"
         }
     ],

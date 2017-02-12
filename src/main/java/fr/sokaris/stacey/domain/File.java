@@ -28,12 +28,12 @@ public class File implements Serializable {
     private String name;
 
     @ManyToOne
-    private Session file;
+    private Session session;
 
     @OneToMany(mappedBy = "file")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<FileState> fileStates = new HashSet<>();
+    private Set<FileState> files = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -56,42 +56,42 @@ public class File implements Serializable {
         this.name = name;
     }
 
-    public Session getFile() {
-        return file;
+    public Session getSession() {
+        return session;
     }
 
-    public File file(Session session) {
-        this.file = session;
+    public File session(Session session) {
+        this.session = session;
         return this;
     }
 
-    public void setFile(Session session) {
-        this.file = session;
+    public void setSession(Session session) {
+        this.session = session;
     }
 
-    public Set<FileState> getFileStates() {
-        return fileStates;
+    public Set<FileState> getFiles() {
+        return files;
     }
 
-    public File fileStates(Set<FileState> fileStates) {
-        this.fileStates = fileStates;
+    public File files(Set<FileState> fileStates) {
+        this.files = fileStates;
         return this;
     }
 
-    public File addFileState(FileState fileState) {
-        fileStates.add(fileState);
+    public File addFile(FileState fileState) {
+        files.add(fileState);
         fileState.setFile(this);
         return this;
     }
 
-    public File removeFileState(FileState fileState) {
-        fileStates.remove(fileState);
+    public File removeFile(FileState fileState) {
+        files.remove(fileState);
         fileState.setFile(null);
         return this;
     }
 
-    public void setFileStates(Set<FileState> fileStates) {
-        this.fileStates = fileStates;
+    public void setFiles(Set<FileState> fileStates) {
+        this.files = fileStates;
     }
 
     @Override

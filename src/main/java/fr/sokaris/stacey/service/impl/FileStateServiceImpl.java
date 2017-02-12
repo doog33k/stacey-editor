@@ -7,6 +7,8 @@ import fr.sokaris.stacey.service.dto.FileStateDTO;
 import fr.sokaris.stacey.service.mapper.FileStateMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -47,16 +49,14 @@ public class FileStateServiceImpl implements FileStateService{
     /**
      *  Get all the fileStates.
      *  
+     *  @param pageable the pagination information
      *  @return the list of entities
      */
     @Transactional(readOnly = true) 
-    public List<FileStateDTO> findAll() {
+    public Page<FileStateDTO> findAll(Pageable pageable) {
         log.debug("Request to get all FileStates");
-        List<FileStateDTO> result = fileStateRepository.findAll().stream()
-            .map(fileStateMapper::fileStateToFileStateDTO)
-            .collect(Collectors.toCollection(LinkedList::new));
-
-        return result;
+        Page<FileState> result = fileStateRepository.findAll(pageable);
+        return result.map(fileState -> fileStateMapper.fileStateToFileStateDTO(fileState));
     }
 
     /**

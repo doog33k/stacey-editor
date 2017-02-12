@@ -17,24 +17,19 @@
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
-                <tr>
-                    <th><span data-translate="global.field.id">ID</span></th>
-                    <th><span data-translate="staceyEditorApp.fileState.version">Version</span></th>
-                    <th><span data-translate="staceyEditorApp.fileState.last">Last</span></th>
-                    <th><span data-translate="staceyEditorApp.fileState.content">Content</span></th>
-                    <th><span data-translate="staceyEditorApp.fileState.file">File</span></th>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="lastModification"><span data-translate="staceyEditorApp.fileState.lastModification">Last Modification</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="content"><span data-translate="staceyEditorApp.fileState.content">Content</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="fileId"><span data-translate="staceyEditorApp.fileState.file">File</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="fileState in vm.fileStates track by fileState.id">
                     <td><a ui-sref="file-statestacey-detail({id:fileState.id})">{{fileState.id}}</a></td>
-                    <td>{{fileState.version}}</td>
-                    <td>{{fileState.last | date:'medium'}}</td>
-                    <td>
-                        <a ng-if="fileState.content" ng-click="vm.openFile(fileState.contentContentType, fileState.content)" data-translate="entity.action.open">open</a>
-                        <span ng-if="fileState.content">{{fileState.contentContentType}}, {{vm.byteSize(fileState.content)}}</span>
-                    </td>
+                    <td>{{fileState.lastModification | date:'medium'}}</td>
+                    <td>{{fileState.content}}</td>
                     <td>
                         <a ui-sref="filestacey-detail({id:fileState.fileId})">{{fileState.fileId}}</a>
                     </td>
@@ -63,5 +58,9 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
     </div>
 </div>

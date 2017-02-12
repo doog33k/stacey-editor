@@ -3,10 +3,14 @@ package fr.sokaris.stacey.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import fr.sokaris.stacey.service.FileStateService;
 import fr.sokaris.stacey.web.rest.util.HeaderUtil;
+import fr.sokaris.stacey.web.rest.util.PaginationUtil;
 import fr.sokaris.stacey.service.dto.FileStateDTO;
 
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,13 +81,18 @@ public class FileStateResource {
     /**
      * GET  /file-states : get all the fileStates.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of fileStates in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/file-states")
     @Timed
-    public List<FileStateDTO> getAllFileStates() {
-        log.debug("REST request to get all FileStates");
-        return fileStateService.findAll();
+    public ResponseEntity<List<FileStateDTO>> getAllFileStates(@ApiParam Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of FileStates");
+        Page<FileStateDTO> page = fileStateService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/file-states");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
