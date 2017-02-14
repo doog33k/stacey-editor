@@ -20,6 +20,9 @@ var sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
         var editor = ace.edit("editor");
         editor.setTheme("ace/theme/textmate");
         editor.getSession().setMode("ace/mode/sas");
+        editor.setOptions({
+            enableBasicAutocompletion: true
+        });
 
         load();
 
