@@ -11,9 +11,9 @@ var sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
         .module('staceyEditorApp')
         .controller('EditorController', EditorController);
 
-    EditorController.$inject = ['$scope', '$state', '$stateParams', 'entity', 'File', 'FileState'];
+    EditorController.$inject = ['$scope', '$state', '$stateParams', 'entity', 'File', 'FileState', '$window'];
 
-    function EditorController ($scope, $state, $stateParams, entity, File, FileState) {
+    function EditorController ($scope, $state, $stateParams, entity, File, FileState, $window) {
         var vm = this;
 
 
@@ -21,10 +21,7 @@ var sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
         var editor = ace.edit("editor");
         editor.setTheme("ace/theme/textmate");
         editor.getSession().setMode("ace/mode/sas");
-        editor.setOptions({
-            enableBasicAutocompletion: true,
-            enableLiveAutocompletion: true
-        });
+
         var sasCompleter = {
             getCompletions: function (editor, session, pos, prefix, callback) {
                 var sasFirstExpList =  ["axis",
@@ -113,7 +110,7 @@ var sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
                                         "%window"
                                         ];
 
-                /*var sasFirstExpListWithPercent =  ["abort",
+                var sasFirstExpListWithPercent =  ["abort",
                                         "armconv",
                                         "armend",
                                         "armgtid",
@@ -157,14 +154,37 @@ var sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
                                         "until",
                                         "while",
                                         "window"
-                                        ];*/
+                                        ];
                 var completersList = [];
-                /*if (prefix === '%') {
-                    completersList = sasFirstExpListWithPercent;
-                } else {
-                    completersList = sasFirstExpList;
-                }*/
-                completersList = sasFirstExpList;
+                var currline = editor.getSelectionRange().start.row;
+                var wholelinetxt = editor.session.getLine(currline);
+                var lineWithoutLeftAndRightSpace = wholelinetxt.trim();
+                var lineWithoutLeftSpace = wholelinetxt.trimLeft();
+                var lineLastCharacter = wholelinetxt.slice(-1);
+                var lineContainsSpaceInTheMiddle = false;
+                var lineFinishesWithSpace = false;
+                var lineStartsWithPercent = false;
+
+                if (lineWithoutLeftAndRightSpace.indexOf(' ') >= 0) {
+                    lineContainsSpaceInTheMiddle = true;
+                }
+                if (lineLastCharacter.indexOf(' ') >= 0) {
+                    lineFinishesWithSpace = true;
+                }
+                if (lineWithoutLeftSpace.charAt(0) === '%') {
+                    lineStartsWithPercent = true;
+                }
+
+                if (!lineContainsSpaceInTheMiddle) {
+                    if (!lineFinishesWithSpace) {
+                        if (!lineStartsWithPercent) {
+                            completersList = sasFirstExpList;
+                        } else {
+                            completersList = sasFirstExpListWithPercent;
+                        }
+                    }
+                }
+
                 callback(null, completersList.map(function (sasExp) {
                     return {
                         caption: sasExp,
@@ -174,7 +194,13 @@ var sampleText="proc surveyselect data=EastHigh method=srs n=15 out=sample1;"
                 }));
             }
         }
-        langTools.setCompleters([langTools.textCompleter,sasCompleter]);
+
+        langTools.setCompleters([sasCompleter]);
+
+        editor.setOptions({
+            enableBasicAutocompletion: true
+            //,enableLiveAutocompletion: true
+        });
 
         load();
 
